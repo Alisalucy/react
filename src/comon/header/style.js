@@ -9,7 +9,7 @@ export const HeaderWrapper = styled.div`
     height:56px;
     border:1px solid #f0f0f0;
     position:reletive;
-
+    
 `;
 
 // logo

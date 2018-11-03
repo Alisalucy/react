@@ -1,9 +1,20 @@
-import React from 'react';
+import React,{PureComponent} from 'react';
+import { connect} from 'react-redux';
+import {RecommeWapper,RecommeList} from '../style';
 
-class Recomme extends React.Component{
+
+class Recomme extends PureComponent{
     render() {
-        return <div>Recomme</div>
+        const {list} = this.props;
+        return <RecommeWapper>
+            {list.map((item) => (
+                <RecommeList  key={item.get('id')} imgUrl={item.get('imgUrl') }></RecommeList>
+            ))}
+        </RecommeWapper>
     }
 }
 
-export default Recomme;
+const toMapState = (state) =>({
+    list:state.getIn(["home","recommelist"])
+})
+export default connect(toMapState,null)(Recomme);

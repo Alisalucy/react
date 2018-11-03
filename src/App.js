@@ -22,10 +22,11 @@ export default class App extends React.Component {
                 <div>
                     <Globalstyle />
                     <Globalstyle1 />
-                    <Header></Header>
+                    
                     <BrowserRouter>
                     {/* exact 完全匹配路由 */}
                         <div>
+                            <Header></Header>
                             <Route path='/' exact component={Home}></Route>
                             <Route path='/detail' exact component={Detail}></Route>
                         </div>

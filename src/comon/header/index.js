@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { PureComponent } from 'react';
 import { connect } from 'react-redux'
 import { CSSTransition } from 'react-transition-group';
+import { Link } from 'react-router-dom';
 
 // 引入action
 import action from './store/action'
@@ -22,49 +23,52 @@ import {
 } from './style'
 
 
-class Header extends React.Component {
-    
-    getListArea(){
-        const { focused,totalPage, searchList,handlChange, handleEent, mouseIn, mouseLeave, page } = this.props;
+class Header extends PureComponent {
+
+    getListArea() {
+        const { focused, totalPage, searchList, handlChange, handleEent, mouseIn, mouseLeave, page } = this.props;
         const pageList = [];
         // 把immutable数据转为普通数组
         const newList = searchList.toJS()
         // page是第几页，每页是10条数据；比如，第1页，1-10；第2页 11-20；第3页 21-30
-        for(let i = (page - 1) * 10; i < page * 10; i++) {
+        for (let i = (page - 1) * 10; i < page * 10; i++) {
             if (newList.length) {
                 pageList.push(
                     <SearchInfoItem key={newList[i]}>{newList[i]}</SearchInfoItem>
                 )
-            } 
-            
+            }
+
         }
         if (focused || mouseIn) {
-            return <SearchInfo  onMouseEnter={handleEent} onMouseLeave={mouseLeave}>
+            return <SearchInfo onMouseEnter={handleEent} onMouseLeave={mouseLeave}>
                 <SearchInfoTitle>
                     热门搜索
-                    <SearchInfoSwitch onClick={() => { handlChange(page, totalPage,this.ChangeDom) }}>
-                    <i className="iconfont spin" ref={(x)=>{this.ChangeDom=x}}>&#xe613;</i>
+                    <SearchInfoSwitch onClick={() => { handlChange(page, totalPage, this.ChangeDom) }}>
+                        <i className="iconfont spin" ref={(x) => { this.ChangeDom = x }}>&#xe613;</i>
                         换一批
                     </SearchInfoSwitch>
-    
+
                 </SearchInfoTitle>
                 <SearchInfoList>
                     {pageList}
-                   
+
                 </SearchInfoList>
-    
+
             </SearchInfo>
         } else {
             return null;
         }
     }
     render() {
-        let { focused,searchList, handleFocu, handleBluer} = this.props
+        let { focused, searchList, handleFocu, handleBluer } = this.props
 
         return (
             <div>
                 <HeaderWrapper>
-                    <Logo />
+                    <Link to={'/'}>
+                        <Logo />
+                    </Link>
+
                     <Nav>
                         <NavItem className="left active">首页</NavItem>
                         <NavItem className="left">下载App</NavItem>
@@ -78,7 +82,7 @@ class Header extends React.Component {
                                 timeout={2000}
                                 classNames="slider">
                                 <NavSearch className={focused ? "focused" : ""}
-                                   
+
                                     onFocus={() => { handleFocu(searchList) }}
                                     onBlur={handleBluer}
                                 ></NavSearch>
@@ -108,10 +112,10 @@ let mapStateToProps = (state) => {
     // getIn({a:b}) 第一个参数是在哪里获取数据， 第二个参数是获取的数据
     return {
         focused: state.getIn(["header", "focused"]),
-        searchList:state.getIn(["header", "searchList"]),
-        mouseIn:state.getIn(["header", "mouseIn"]),
-        page:state.getIn(["header", "page"]),
-        totalPage:state.getIn(["header", "totalPage"])
+        searchList: state.getIn(["header", "searchList"]),
+        mouseIn: state.getIn(["header", "mouseIn"]),
+        page: state.getIn(["header", "page"]),
+        totalPage: state.getIn(["header", "totalPage"])
     }
 }
 let mapDispatchToProps = (dispatch) => {
@@ -121,8 +125,8 @@ let mapDispatchToProps = (dispatch) => {
             // 若size === 0 ,是第一次请求数据。两次请求，直接从缓存中获取即可
             // 不再从服务器获取。提高性能
             (searchList.size === 0) && dispatch(action.getSearchList());
-                dispatch(action.onfocus()); 
-            
+            dispatch(action.onfocus());
+
         },
         handleBluer() {
             dispatch(action.onblur())
@@ -135,18 +139,18 @@ let mapDispatchToProps = (dispatch) => {
         },
         handlChange(page, totalPage, changeDom) {
             let rotateDom = changeDom.style.transform.replace(/[^0-9]/ig, '');
-            if(rotateDom){
-                rotateDom = parseInt(rotateDom,10)
-            }else{
+            if (rotateDom) {
+                rotateDom = parseInt(rotateDom, 10)
+            } else {
                 rotateDom = 0;
             }
-            changeDom.style.transform='rotate('+(rotateDom+360)+'deg)';
+            changeDom.style.transform = 'rotate(' + (rotateDom + 360) + 'deg)';
             if (page < totalPage) {
-                dispatch(action.getPageChange(page+1));
+                dispatch(action.getPageChange(page + 1));
             } else {
                 dispatch(action.getPageChange(1));
             }
-            
+
         }
     }
 }
