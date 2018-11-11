@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{PureComponent} from 'react';
 import { connect } from 'react-redux';
 
 import {
@@ -6,11 +6,12 @@ import {
     TopicItem
 } from '../style.js'
 
-class Topic extends React.Component {
+class Topic extends PureComponent {
    
     render() {
         // list是immutable数组所以不能用[方式获取属性]
-        let { list } = this.props
+        let { list } = this.props;
+        console.log(list)
         return <div>
             <TopicWrapper>
                 {list.map((item)=>{

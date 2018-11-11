@@ -9,7 +9,7 @@ export const HeaderWrapper = styled.div`
     height:56px;
     border:1px solid #f0f0f0;
     position:reletive;
-
+    
 `;
 
 // logo
@@ -53,6 +53,7 @@ export const NavItem = styled.div`
 `;
 
 export const SearchWrapper = styled.div`
+    z-index:10;
    position:relative;
    float:left; 
    .zoom{
