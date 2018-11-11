@@ -2,10 +2,7 @@ import React, { PureComponent } from 'react';
 import { connect } from 'react-redux'
 import { CSSTransition } from 'react-transition-group';
 import { Link } from 'react-router-dom';
-<<<<<<< HEAD
 import actions from '../../page/login/store/action'
-=======
->>>>>>> b20ddf4c727e600518aa3b1ca81f24dd618fc699
 
 // 引入action
 import action from './store/action'
@@ -64,11 +61,7 @@ class Header extends PureComponent {
         }
     }
     render() {
-<<<<<<< HEAD
         let { focused, searchList, handleFocu, handleBluer,login,logout } = this.props
-=======
-        let { focused, searchList, handleFocu, handleBluer } = this.props
->>>>>>> b20ddf4c727e600518aa3b1ca81f24dd618fc699
 
         return (
             <div>
@@ -128,12 +121,8 @@ let mapStateToProps = (state) => {
         searchList: state.getIn(["header", "searchList"]),
         mouseIn: state.getIn(["header", "mouseIn"]),
         page: state.getIn(["header", "page"]),
-<<<<<<< HEAD
         totalPage: state.getIn(["header", "totalPage"]),
         login:state.getIn(["login","show"])
-=======
-        totalPage: state.getIn(["header", "totalPage"])
->>>>>>> b20ddf4c727e600518aa3b1ca81f24dd618fc699
     }
 }
 let mapDispatchToProps = (dispatch) => {
@@ -169,12 +158,9 @@ let mapDispatchToProps = (dispatch) => {
                 dispatch(action.getPageChange(1));
             }
 
-<<<<<<< HEAD
         },
         logout() {
             dispatch(actions.logouts())
-=======
->>>>>>> b20ddf4c727e600518aa3b1ca81f24dd618fc699
         }
     }
 }
